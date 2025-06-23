@@ -29,7 +29,7 @@ app.use(
     resave: false,
     saveUninitialized: false,
     cookie: {
-      secure: false, // true אם אתה עובד עם HTTPS
+      secure: false,
       httpOnly: true,
     },
   })
@@ -39,6 +39,8 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Routes
+
+// app.use('/auth', authRoutes);
 app.get('/', (req, res) => {
   res.send('🔐 Auth system running!');
 });
