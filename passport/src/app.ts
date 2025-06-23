@@ -6,6 +6,8 @@ import session from 'express-session';
 import passport from 'passport';
 import path from 'path';
 import { connectDB } from './config/database';
+import authRoutes from './routes/authRoutes';
+import './config/passport';
 
 dotenv.config();
 
@@ -40,12 +42,12 @@ app.use(passport.session());
 
 // Routes
 
-// app.use('/auth', authRoutes);
+app.use('/auth', authRoutes);
 app.get('/', (req, res) => {
   res.send('🔐 Auth system running!');
 });
 
-const PORT = Number(process.env.PORT) || 5000;
+const PORT = Number(process.env.PORT) || 8005;
 
 connectDB();
 
