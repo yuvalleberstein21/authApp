@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
@@ -33,6 +33,7 @@ app.use(
     cookie: {
       secure: false,
       httpOnly: true,
+      maxAge: 24 * 60 * 60 * 1000, // 24 שעות
     },
   })
 );
@@ -43,10 +44,17 @@ app.use(passport.session());
 // Routes
 
 app.use('/auth', authRoutes);
-app.get('/', (req, res) => {
-  res.send('🔐 Auth system running!');
+
+app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+  console.error('💥 Unhandled Error:', err);
+  res.status(500).json({ message: 'שגיאה לא מטופלת' });
 });
 
+// 404 handler
+app.use((req: Request, res: Response) => {
+  console.log('❓ 404 - Route not found:', req.method, req.path);
+  res.status(404).json({ message: 'נתיב לא נמצא' });
+});
 const PORT = Number(process.env.PORT) || 8005;
 
 connectDB();

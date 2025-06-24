@@ -9,10 +9,14 @@ passport.use(
     async (email, password, done) => {
       try {
         const user = await User.findOne({ email });
-        if (!user) return done(null, false, { message: 'User Not Found' });
+        if (!user) {
+          console.log('❌ משתמש לא נמצא');
+          return done(null, false, { message: 'משתמש לא נמצא' });
+        }
 
         const match = await bcrypt.compare(password, user.password);
-        if (!match) return done(null, false, { message: 'Incorrect password' });
+        if (!match)
+          return done(null, false, { message: 'פרטים שגויים נס/י שנית.' });
 
         return done(null, user);
       } catch (err) {
@@ -30,7 +34,9 @@ passport.serializeUser((user: any, done) => {
 // מחזיר את המשתמש מתוך ה-id
 passport.deserializeUser(async (id, done) => {
   try {
+    console.log('🔍 deserializeUser: ID =', id); // <-- כאן תראה אם בכלל מגיע id
     const user = await User.findById(id);
+    console.log('👤 User found:', user);
     done(null, user);
   } catch (err) {
     done(err);

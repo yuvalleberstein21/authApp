@@ -1,13 +1,18 @@
 import express from 'express';
-import { login, logout, register } from '../controllers/userController';
-import passport from 'passport';
+import {
+  login,
+  logout,
+  profile,
+  register,
+} from '../controllers/userController';
+import { isAuthenticated } from '../middlewares/auth';
 
 const router = express.Router();
 
 router.post('/register', register);
-router.post('/login', passport.authenticate('local'), login);
+router.post('/login', login);
 router.post('/logout', logout);
 
-// router.get('/protected-route');
+router.get('/protected', isAuthenticated, profile);
 
 export default router;
