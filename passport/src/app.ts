@@ -7,7 +7,10 @@ import passport from 'passport';
 import path from 'path';
 import { connectDB } from './config/database';
 import authRoutes from './routes/authRoutes';
+import googleRoutes from './routes/googleRoutes';
 import './config/passport';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
 
 dotenv.config();
 
@@ -44,6 +47,9 @@ app.use(passport.session());
 // Routes
 
 app.use('/auth', authRoutes);
+app.use('/auth', googleRoutes);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use((err: any, req: Request, res: Response, next: NextFunction) => {
   console.error('💥 Unhandled Error:', err);
