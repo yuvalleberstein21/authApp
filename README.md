@@ -28,4 +28,4 @@
 
 - ## 📘 תיעוד API
 - Swagger: http://localhost:8005/api-docs
-- Google Login: דרך הדפדפן בלבד, ב־ http://localhost:8005/auth/google
+- Google Login: דרך הדפדפן בלבד, ב־ http://localhost:8005/login.html
