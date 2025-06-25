@@ -1,7 +1,7 @@
 # 🔐 AuthApp
 מערכת אימות משתמשים עם Node.js, TypeScript, Express, Mongodb, Mongoose ו־Passport.
 
-![Auth App Image](./assets/swagger-AuthApp.png)
+![Auth App Image](./passport/assets/swagger-AuthApp.png)
 
 ## 🚀 תכונות
 
